@@ -252,6 +252,7 @@
                 </div>
                 <?php } ?>
                 <div class="form-group mb-3">
+                  <label for="idCategoria">Categoria</label>
                   <div class="input-group input-group-merge input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-stream"></i></span>
@@ -264,6 +265,7 @@
                   </div>
                 </div>
                 <div class="form-group mb-3">
+                  <label for="idCategoria">Nome do produto</label>
                   <div class="input-group input-group-merge input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-pen"></i></span>
@@ -272,6 +274,7 @@
                   </div>
                 </div>
                 <div class="form-group mb-3">
+                  <label for="idCategoria">Preço</label>
                   <div class="input-group input-group-merge input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
@@ -304,6 +307,7 @@
                   </div>
                 </div> -->
                 <div class="form-group mb-3">
+                  <label for="idCategoria">Imagem</label>
                   <div class="input-group input-group-merge input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-image"></i></span>

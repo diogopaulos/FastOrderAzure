@@ -6,13 +6,14 @@
     include_once "../Admin/assets/php/categories.php";
     include_once "../Admin/assets/php/users.php";
     include_once "../Admin/assets/php/products.php";
+    include_once "../Admin/assets/php/pedido.php";
     include_once "php/cart.php"; 
 
     function randomPassword() {
-        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_.,:;!?()';
         $pass = array(); //remember to declare $pass as an array
         $alphaLength = strlen($alphabet); //put the length -1 in cache
-        for ($i = 0; $i < 16; $i++) {
+        for ($i = 0; $i < 12; $i++) {
             $n = rand(8, $alphaLength);
             $pass[] = $alphabet[$n];
         }
@@ -61,7 +62,7 @@
         $userCheck = $users->checkEmail();
 
 
-        if(count($userCheck) > 0){
+        if(count($userCheck) <= 0){
             $fastorderemail = "fastorderepsm@gmail.com";
             $fastorderpass = "xtc6tw93";
 
@@ -103,6 +104,11 @@
         } else {
             $userFound = true;
         }
+
+        $users->
+
+        $pedido = new Pedido();
+        $pedido->setIdUtilizador
     }
 ?>
 
@@ -132,7 +138,7 @@
                 <div class="checkout__form">
                     <?php if ($userFound == true) { ?>
                         <div class="alert alert-danger" role="alert">
-                            O email inserido já está registado.
+                            O email inserido não existe ou já está registado.
                         </div>
                     <?php } ?>
                     <h4>Detalhes de Pagamentos</h4>

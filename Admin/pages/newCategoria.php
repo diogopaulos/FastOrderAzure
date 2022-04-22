@@ -185,6 +185,7 @@
                   </div>
                 <?php } ?>
                 <div class="form-group mb-3">
+                  <label for="idCategoria">Nome da categoria</label>
                   <div class="input-group input-group-merge input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-pen"></i></span>

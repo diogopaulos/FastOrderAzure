@@ -236,24 +236,28 @@
             <div class="card-body">
               <form role="form" method="POST">
                 <div class="modal-body">
-                  <div class="form-floating mb-3">
+                  <div class="form-floating mb-3" hidden>
                     <input type="hidden" name="idUtilizador" value="<?php echo $userEditar["idUtilizador"]; ?>" required>
                   </div>
                   <div class="form-floating mb-3">
+                  <label for="idCategoria">Nome de utilizador</label>
                     <input type="text" name="NomeUtilizador" class="form-control" value="<?php echo $userEditar["NomeUtilizador"]; ?>" required>
                   </div>
                   <div class="form-floating mb-3">
+                  <label for="idCategoria">Email</label>
                     <input type="text" name="Email" class="form-control" value="<?php echo $userEditar["Email"]; ?>">
                   </div>
                   <div class="form-floating mb-3">
+                  <label for="idCategoria">Palavra-passe</label>
                     <input type="password" name="Password" id="myPassword" class="form-control" value="<?php echo $userEditar["Password"]; ?>" required>
-                    <input type="checkbox" class="align-items-start" onclick="passwordShow()"><text class="text-sm text-gray">Mostrar Palavra-passe</text>  
+                    <input type="checkbox" class="align-items-start" onclick="passwordShow()" style="margin-right: 0.5rem"><text class="text-sm text-gray">Mostrar Palavra-passe</text>  
                   </div>
                   <div class="form-floating mb-3">
+                  <label for="idCategoria">Cargo</label>
                     <select name="Perfil" class="form-control">
                       <option value="<?php echo $userEditar["Perfil"]; ?>"><?php echo $userEditar["Perfil"]; ?></option>
-                      <option value="<?php if ($userEditar["Perfil"] == "Administrador") { echo "Cliente"; } else { echo "Administrador"; }?>">
-                      <?php if ($userEditar["Perfil"] == "Administrador") { echo "Cliente"; } else { echo "Administrador"; }?>
+                      <option value="<?php if ($userEditar["Perfil"] == "Administrador") { echo "Funcionário"; } else { echo "Administrador"; }?>">
+                      <?php if ($userEditar["Perfil"] == "Administrador") { echo "Funcionário"; } else { echo "Administrador"; }?>
                       </option>
                     </select>
                   </div>

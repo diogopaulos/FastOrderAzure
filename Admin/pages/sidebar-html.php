@@ -1,3 +1,5 @@
+<meta http-equiv="refresh" content="60">
+
 <ul class="navbar-nav">
   <li class="nav-item">
     <a class="nav-link" href="dashboard.php">

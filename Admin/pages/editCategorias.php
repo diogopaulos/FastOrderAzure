@@ -201,6 +201,7 @@
                   <input type="hidden" name="idCategoria" value="<?php echo $categoriaEditar["idCategoria"]; ?>" />
                 </div>
                 <div class="form-floating mb-3">
+                  <label for="idCategoria">Nome da Categoria</label>
                   <input type="text" name="NomeCategoria" class="form-control" value="<?php echo $categoriaEditar["NomeCategoria"]; ?>" />
                 </div>
                 <div class="justify-content-center text-center">

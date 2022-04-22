@@ -273,22 +273,7 @@
                   <input type="hidden" name="idProduto" value="<?php echo $produtoEditar["idProduto"]; ?>" required>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="text" name="NomeProduto" class="form-control" value="<?php echo $produtoEditar["NomeProduto"]; ?>" required>
-                </div>
-                <div class="form-floating mb-3">
-                  <input type="text" name="Preco" class="form-control" value="<?php echo $produtoEditar["Preco"]; ?>">
-                </div>
-                <div class="form-floating mb-3">
-                  <div class="row mb-3">
-                    <div class="col-2">
-                      <img src="../../FastOrder_Produtos/<?php echo $produtoEditar["Imagem"]; ?>" alt="<?php echo $produtoEditar["NomeProduto"]; ?>" class="productImg" style="width: 100%;">
-                    </div>
-                    <div class="col-10">
-                      <input type="file" name="Imagem" class="form-control" value="<?php echo $produtoEditar["Imagem"]; ?>">
-                    </div>
-                  </div>
-                </div>
-                <div class="form-floating mb-3">
+                  <label for="idCategoria">Categoria</label>
                   <select name="idCategoria" class="form-control">
                     <?php 
                       $category = new Category();
@@ -307,6 +292,25 @@
                       </option>
                     <?php } ?>
                   </select>
+                </div>
+                <div class="form-floating mb-3">
+                  <label for="idCategoria">Nome do produto</label>
+                  <input type="text" name="NomeProduto" class="form-control" value="<?php echo $produtoEditar["NomeProduto"]; ?>" required>
+                </div>
+                <div class="form-floating mb-3">
+                  <label for="idCategoria">Preço</label>
+                  <input type="text" name="Preco" class="form-control" value="<?php echo $produtoEditar["Preco"]; ?>">
+                </div>
+                <div class="form-floating mb-3">
+                  <label for="idCategoria">Imagem</label>
+                  <div class="row mb-3">
+                    <div class="col-2">
+                      <img src="../../FastOrder_Produtos/<?php echo $produtoEditar["Imagem"]; ?>" alt="<?php echo $produtoEditar["NomeProduto"]; ?>" class="productImg" style="width: 100%;">
+                    </div>
+                    <div class="col-10">
+                      <input type="file" name="Imagem" class="form-control" value="<?php echo $produtoEditar["Imagem"]; ?>">
+                    </div>
+                  </div>
                 </div>
                 <div class="justify-content-center text-center">
                   <a href="produtos.php" class="btn btn-secondary mt-3">Voltar</a>

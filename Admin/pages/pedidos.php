@@ -3,9 +3,6 @@
   require("../assets/php/permissions.php");
 
   include_once "../assets/php/pedido_detalhes.php";
-
-  $detalhes = new Pedido_Detalhes();
-  $detalhesList = $detalhes->listDetails();
 ?>
 <!DOCTYPE html>
 <html>
@@ -171,7 +168,6 @@
                   </tr>
                 </thead>
                 <tbody class="list">
-                  <?php foreach($detalhesList as $detalhes) { ?>
                     <tr>
                       <th scope="row">
                       <span class="name mb-0 text-sm">Diogo Paulos</span>
@@ -210,7 +206,6 @@
                         </div>
                       </td>
                     </tr>
-                  <?php } ?>
                 </tbody>
               </table>
             </div>
