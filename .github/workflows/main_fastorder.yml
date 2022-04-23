@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'FastOrder'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_266E7B927F374595AAE2D70828C9A1B1 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1B66B7E781174A09985D7A6ADA67C78B }}
           package: .
