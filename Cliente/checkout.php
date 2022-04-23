@@ -7,17 +7,13 @@
     include_once "../Admin/assets/php/users.php";
     include_once "../Admin/assets/php/products.php";
     include_once "../Admin/assets/php/pedido.php";
+    include_once "../Admin/assets/php/pedido_detalhes.php";
     include_once "php/cart.php"; 
 
-    function randomPassword() {
-        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_.,:;!?()';
-        $pass = array(); //remember to declare $pass as an array
-        $alphaLength = strlen($alphabet); //put the length -1 in cache
-        for ($i = 0; $i < 12; $i++) {
-            $n = rand(8, $alphaLength);
-            $pass[] = $alphabet[$n];
-        }
-        return implode($pass); //turn the array into a string
+    function randomPassword( $length = 8 ) {
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$&*()_-+;:,.?";
+        $password = substr( str_shuffle( $chars ), 0, $length );
+        return $password;
     }
 
     $precoTotal = 0;
@@ -26,6 +22,10 @@
     //Cart
     $cart = new Cart();
     $cartList = $cart->showCart();
+
+    foreach($cartList as $cart){
+        $precoTotal = $precoTotal + ($cart["Preco"]*$cart["Quantidade"]);
+    }
 
     if(isset($_POST["finalizarPedido"])){
         $NomeUtilizador = strtolower($_POST["fname"]) . strtolower($_POST["lname"]) . random_int(0000, 9999);
@@ -39,7 +39,8 @@
         $email = $_POST["email"];
         $password = randomPassword();
         $perfil = "Cliente";
-
+        $notas = $_POST["notas"];
+        
         $users = new User();
         $users->setNomeUtilizador(str_replace(' ','',$NomeUtilizador));
         $users->setNome($fname);
@@ -47,7 +48,11 @@
         $users->setMorada($morada);
         $users->setCidade($cidade);
         $users->setCodigoPostal($postalCode);
-        $users->setContribuinte($contribuinte);
+        if(strlen($contribuinte > 0)){
+            $users->setContribuinte($contribuinte);
+        } else {
+            $users->setContribuinte(0);
+        }
         $users->setTelefone($phonenumber);
         $users->setEmail($email);
         $users->setPassword($password);
@@ -99,16 +104,43 @@
                 echo 'Erro: ' . $mail->ErrorInfo;
             }
 
-            $users->createUser();
-            
+            // $users->createUser();
         } else {
             $userFound = true;
         }
 
-        $users->
+        $users->createUser();
+
+
+        $users->setNomeUtilizador($NomeUtilizador);
+        $findUser = $users->checkUser()[0];
+
 
         $pedido = new Pedido();
-        $pedido->setIdUtilizador
+        $pedido->setIdUtilizador($findUser["idUtilizador"]);
+        $pedido->setValorTotal($precoTotal);
+        $pedido->setEstado("A preparar");
+        $pedido->setTipo("Delivery");
+
+        $pedido->createPedido();
+
+        $pedidoId = $pedido->getById()[0];
+
+        $pedido_detalhes = new Pedido_Detalhes();
+        foreach($cartList as $cart){
+            $pedido_detalhes->setIdProduto($cart["idProduto"]);
+            $pedido_detalhes->setQuantidade($cart["Quantidade"]);
+            $pedido_detalhes->setPreco($cart["Preco"]);
+            $pedido_detalhes->setIdPedido($pedidoId["idPedido"]);
+            $pedido_detalhes->setTamanho($cart["Tamanho"]);
+            $pedido_detalhes->setNotas($notas);
+
+            $pedido_detalhes->createDetails();
+        }
+        $cart = new Cart();
+        $cart->deleteSessionID(session_id());
+
+        header("Location: index.php");
     }
 ?>
 
@@ -138,7 +170,7 @@
                 <div class="checkout__form">
                     <?php if ($userFound == true) { ?>
                         <div class="alert alert-danger" role="alert">
-                            O email inserido não existe ou já está registado.
+                            O email inserido não existe ou já está em uso.
                         </div>
                     <?php } ?>
                     <h4>Detalhes de Pagamentos</h4>
@@ -206,7 +238,7 @@
                                 </div>
                                 <div class="checkout__input">
                                     <p>Notas Adicionais<span style="font-size: 12.5px;margin-left: .5rem; opacity: 0.7;">Opcional</span></p>
-                                    <input type="text" name="adicional_notes"
+                                    <input type="text" name="notas"
                                         placeholder="Notas sobre o seu pedido, por ex. notas especiais para entrega.">
                                 </div>
                             </div>
@@ -219,8 +251,6 @@
                                             $produto = new Product();
                                             $produto->setIdProduto($cart["idProduto"]);
                                             $produtoSelect = $produto->getById()[0]; 
-                                            
-                                            $precoTotal = $precoTotal + ($cart["Preco"]*$cart["Quantidade"]);
                                         ?>
                                             <li>
                                                 <?php echo $cart["Quantidade"] ?>x

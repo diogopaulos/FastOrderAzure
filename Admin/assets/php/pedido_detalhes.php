@@ -1,5 +1,4 @@
 <?php
-	
 	class Pedido_Detalhes {
 		//Atributos
 		private $idPedido_Detalhes;
@@ -7,12 +6,13 @@
 		private $Quantidade;
 		private $Preco;
 		private $idPedido;
+		private $Notas;
+		private $Tamanho;
 
 		//Acessores e Modificadores
 		public function setIdPedido_Detalhes($value){
 			$this->idPedido_Detalhes = $value;
 		}
-
 		public function getIdPedido_Detalhes(){
 			return $this->idPedido_Detalhes;
 		}
@@ -20,7 +20,6 @@
 		public function setIdProduto($value){
 			$this->idProduto = $value;
 		}
-
 		public function getIdProduto(){
 			return $this->idProduto;
 		}
@@ -28,16 +27,13 @@
 		public function setQuantidade($value){
 			$this->Quantidade = $value;
 		}
-
 		public function getQuantidade(){
 			return $this->Quantidade;
 		}
 
-
 		public function setPreco($value){
 			$this->Preco = $value;
 		}
-
 		public function getPreco(){
 			return $this->Preco;
 		}
@@ -45,15 +41,29 @@
 		public function setIdPedido($value){
 			$this->idPedido = $value;
 		}
-
 		public function getIdPedido(){
 			return $this->idPedido;
+		}
+
+		public function setNotas($value){
+			$this->Notas = $value;
+		}
+		public function getNotas(){
+			return $this->Notas;
+		}
+
+		public function setTamanho($value){
+			$this->Tamanho = $value;
+		}
+		public function getTamanho(){
+			return $this->Tamanho;
 		}
 
 		public function createDetails() {
 			require("dbconnect.php");
 
-			$sql = "INSERT INTO pedido_detalhes(idProduto, Quantidade, Preco) VALUES ('" . $this->idProduto . "','" . $this->Quantidade . "'," . $this->Preco . "')";
+			$sql = "INSERT INTO pedido_detalhes(idProduto, Quantidade, Preco, idPedido, Notas, Tamanho) 
+			VALUES ('" . $this->idProduto . "','" . $this->Quantidade . "','" . $this->Preco . "','" . $this->idPedido . "','" . $this->Notas . "','" . $this->Tamanho . "')";
 
 			$connect->exec($sql);
 		}
@@ -80,32 +90,31 @@
 			return $Detailss;
 		}
 
-    /*
-		public function editDetails() {
+		public function showByPedido() {
 			require("dbconnect.php");
 
-			// Instrução SQL para registar o produto
-			$sql = "UPDATE pedido_detalhes SET NomeProduto = '" . $this->NomeProduto . "', Preco='" . $this->Preco . "', Imagem='" . $this->Imagem . "' WHERE idProduto =" . $this->idProduto;
-
-			//Executar instrução SQL na base de dados
-			$connect->exec($sql);
-		}
-    */
-
-    /*
-		public function getById(){
-			require("dbconnect.php");
-
-			// Instrução SQL para selecionar dados da bd
-			$sql = "SELECT * FROM pedido_detalhes WHERE idProduto =" . $this->idProduto;
-
-			// Preparar instrução 
+			// Instrução SQL para ler todos os pedido_detalhes da BD
+			$sql = "SELECT * FROM pedido_detalhes WHERE idPedido = " . $this->idPedido; 
+			// Preparação da instrução á BD
 			$query = $connect->query($sql);
-			// Executar a query e gravar resultados
-			$pedido_detalhes = $query->fetchAll(PDO::FETCH_ASSOC);
+			// Execução da query na BD a gravar resultados numa varíavel
+			$Detailss = $query->fetchAll(PDO::FETCH_ASSOC);
 
-			// Retornar os dados
-			return $pedido_detalhes;
+			// Devolver resultado 
+			return $Detailss;
 		}
-    */
+
+		public function getByPedido() {
+			require("dbconnect.php");
+
+			// Instrução SQL para ler todos os pedido_detalhes da BD
+			$sql = "SELECT FROM pedido_detalhes WHERE idPedido = " . $this->idPedido; 
+			// Preparação da instrução á BD
+			$query = $connect->query($sql);
+			// Execução da query na BD a gravar resultados numa varíavel
+			$Detailss = $query->fetchAll(PDO::FETCH_ASSOC);
+
+			// Devolver resultado 
+			return $Detailss;
+		}
 	}

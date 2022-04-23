@@ -125,6 +125,14 @@
 			$connect->exec($sql);
 		}
 
+		public function deleteSessionID() {
+			require("../Admin/assets/php/dbconnect.php");
+
+			$sql = "DELETE FROM pedido_detalhes_temp WHERE sessionID = '" . session_id() . "'";
+
+			$connect->exec($sql);
+		}
+
 		public function listCart() {
 			require("../Admin/assets/php/dbconnect.php");
 

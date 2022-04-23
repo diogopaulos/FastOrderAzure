@@ -8232,14 +8232,14 @@ button.bg-custom-warning:focus {
 }
 
 .bg-warning {
-    background-color: #fa3a0e !important;
+    background-color: #ffae00 !important;
 }
 
 a.bg-warning:hover,
 a.bg-warning:focus,
 button.bg-warning:hover,
 button.bg-warning:focus {
-    background-color: #fa3a0e !important;
+    background-color: #ffae00 !important;
 }
 
 .bg-danger {
@@ -27682,4 +27682,8 @@ input.datetimepicker[data-color='yellow']+.bootstrap-datetimepicker-widget.dropd
 
 .navbar-nav .nav-item:hover {
     background-color: rgba(0, 0, 0, .05);
+}
+
+.grayText {
+    color: #a2a6a3;
 }

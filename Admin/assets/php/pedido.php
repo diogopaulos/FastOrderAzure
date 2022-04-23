@@ -47,10 +47,25 @@
 		public function createPedido() {
 			require("dbconnect.php");
 
-			$sql = "INSERT INTO pedido(idUtilizador, ValorTotal, Estado, Tipo) 
-      VALUES ('" . $this->idUtilizador . "','" . $this->ValorTotal . "'," . $this->Estado . "'," . $this->Tipo . "')";
+			$sql = "INSERT INTO pedido(idUtilizador, ValorTotal, Estado, Tipo)
+      VALUES ('" . $this->idUtilizador . "','" . $this->ValorTotal . "','" . $this->Estado . "','" . $this->Tipo . "')";
 
 			$connect->exec($sql);
+		}
+
+		public function showPedidos(){
+			require("dbconnect.php");
+
+			// Instrução SQL para selecionar dados da bd
+			$sql = "SELECT * FROM pedido";
+
+			// Preparar instrução 
+			$query = $connect->query($sql);
+			// Executar a query e gravar resultados
+			$pedido = $query->fetchAll(PDO::FETCH_ASSOC);
+
+			// Retornar os dados
+			return $pedido;
 		}
 
     public function deletePedido($idUtilizador) {
@@ -59,5 +74,20 @@
 			$sql = "DELETE FROM pedido WHERE Estado = Fechado";
 
 			$connect->exec($sql);
+		}
+
+		public function getById(){
+			require("dbconnect.php");
+
+			// Instrução SQL para selecionar dados da bd
+			$sql = "SELECT * FROM pedido WHERE idUtilizador =" . $this->idUtilizador;
+
+			// Preparar instrução 
+			$query = $connect->query($sql);
+			// Executar a query e gravar resultados
+			$pedido = $query->fetchAll(PDO::FETCH_ASSOC);
+
+			// Retornar os dados
+			return $pedido;
 		}
 	}

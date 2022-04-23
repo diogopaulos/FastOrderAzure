@@ -2,7 +2,15 @@
   require("../assets/php/requirelogin.php");
   require("../assets/php/permissions.php");
 
+  include_once "../assets/php/pedido.php";
   include_once "../assets/php/pedido_detalhes.php";
+  include_once "../assets/php/users.php";
+  include_once "../assets/php/products.php";
+
+  $precoPedido = 0;
+
+  $pedido = new Pedido();
+  $pedidoList = $pedido->showPedidos();
 ?>
 <!DOCTYPE html>
 <html>
@@ -161,39 +169,72 @@
                   <tr>
                     <th scope="col">Utilizador</th>
                     <th scope="col" class="sort" data-sort="name">Pedido</th>
-                    <th scope="col" class="sort" data-sort="budget">Preço</th>
+                    <th scope="col" class="sort" data-sort="budget">Preço Total</th>
                     <th scope="col" class="sort" data-sort="status">Estado</th>
                     <th scope="col" class="sort">Tipo</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody class="list">
+                  <?php foreach($pedidoList as $pedido){ ?>
                     <tr>
                       <th scope="row">
-                      <span class="name mb-0 text-sm">Diogo Paulos</span>
+                      <span class="name mb-0 text-sm">
+                        <?php 
+                          $user = new User();
+                          $user->setIdUtilizador($pedido["idUtilizador"]);
+                          $userGet = $user->getById()[0];
+
+                          echo $userGet["Nome"] . " " . $userGet["Apelido"];
+                        ?>
+                      </span>
                       </th>
                         <td>
                         <div class="media align-items-center">
                           <div class="media-body">
-                            
                             <span class="name mb-0 text-sm">
-                              Pizza Accierale Individual (<text class="name mb-0 text-sm idText">33</text>) - <text class="priceText">6.99€</text><br>
-                              Ice Tea Manga - <text class="priceText">1.50€</text><br>
+                              <?php
+                                $pedido_detalhes = new Pedido_Detalhes();
+                                $pedido_detalhes->setIdPedido($pedido["idPedido"]);
+                                $pedido_detalhesList = $pedido_detalhes->showByPedido();
+
+                                foreach($pedido_detalhesList as $pedido_detalhes){
+                                  $product = new Product();
+                                  $product->setIdProduto($pedido_detalhes["idProduto"]);
+                                  $productGet = $product->getById()[0];
+
+                                  echo $productGet["idProduto"] . " - ";
+                                  echo $productGet["NomeProduto"];
+
+                                  if(strlen($pedido_detalhes["Tamanho"]) > 0){
+                                    echo "<text class='grayText ml-2'>" . str_replace(' ','',$pedido_detalhes["Tamanho"]) . "</text>";
+                                  }
+
+                                  echo "<text class='priceText ml-2'>" . $pedido_detalhes["Preco"] . "€</text>";
+                                  echo "<br>";
+                                }
+                              ?>
                             </span>
                           </div>
                         </div>
                       </td>
                       <td class="budget">
-                        <text class="priceText">8.49€</text>
+                        <text class="priceText"><?php echo number_format($pedido["ValorTotal"],2); ?></text>
                       </td>
                       <td>
                         <span class="badge badge-dot mr-4">
-                          <i class="bg-success"></i>
-                          <span class="status">Entregue</span>
+                          <i class="bg-<?php if($pedido["Estado"] == "Entregue"){
+                            echo "success";
+                          } elseif($pedido["Estado"] == "Fechado"){
+                            echo "danger";
+                          } else {
+                            echo "warning";
+                          } ?>"></i>
+                          <span class="status"><?php echo $pedido["Estado"]; ?></span>
                         </span>
                       </td>
                       <td>
-                        <span class="name mb-0 text-sm">Takeaway</span>
+                        <span class="name mb-0 text-sm"><?php echo $pedido["Tipo"]; ?></span>
                       </td>
                       <td class="text-right">
                         <div class="dropdown">
@@ -206,6 +247,7 @@
                         </div>
                       </td>
                     </tr>
+                  <?php } ?>
                 </tbody>
               </table>
             </div>

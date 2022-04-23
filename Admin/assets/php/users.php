@@ -117,7 +117,7 @@
 
 			$sql = "INSERT INTO utilizador(NomeUtilizador, Nome, Apelido, Morada, Cidade, CodigoPostal, Contribuinte, Telefone, Email, Password, Perfil) 
 				VALUES ('" . $this->NomeUtilizador . "','" . $this->Nome . "','" . $this->Apelido . "','" . $this->Morada . "','" . $this->Cidade . "','" 
-				. $this->CodigoPostal . "','" . $this->Contribuinte . "','" . $this->Telefone . "','" . $this->Email . "','" . $this->Password . "','" . $this->Perfil . "')";
+				. $this->CodigoPostal . "'," . $this->Contribuinte . "," . $this->Telefone . ",'" . $this->Email . "','" . $this->Password . "','" . $this->Perfil . "')";
 
 			$connect->exec($sql);
 		}

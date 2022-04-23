@@ -3,6 +3,13 @@
   $loginError = false;
   $passrecup = false;
 
+  $pageWasRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0';
+  if($pageWasRefreshed){
+    if (strpos($_SERVER['REQUEST_URI'], "passrecup") !== false){
+      header("location: login.php");
+    }
+  }
+
   session_start();
 
   if(isset($_GET["passrecup"])){

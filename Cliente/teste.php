@@ -1,5 +1,5 @@
 <?php
-if(isset($_POST["finalizarPedido"])){
-  $Fname = $_POST["fname"];
-}
+if (strpos($_SERVER['REQUEST_URI'], "passrecup") !== false){
+  echo "wrong";
+} else { echo "correct";}
 ?>
